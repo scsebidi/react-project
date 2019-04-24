@@ -109,7 +109,8 @@ export default class Register extends Component {
                 <option>Female</option>
               </Input>
             </FormGroup>
-           <Button onClick={this.submitData} color="success">Submit</Button>
+           <Button onClick={this.submitData} color="success">Submit</Button><br/>
+           <a href="/">Go to home</a>
           </Form>
           </Container>
           </div>
