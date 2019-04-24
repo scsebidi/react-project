@@ -97,7 +97,8 @@ export class DefaultPage extends Component {
               Password :
               <Input type="password" name="password" id="password" placeholder="Enter password" style={formLabelStyle} onChange={this.onChange}/>
             </FormGroup>
-            <Button onClick={this.submitData} color="success">Log In</Button>
+            <Button onClick={this.submitData} color="success">Log In</Button><br/>
+            <a href="/register">Click here to register</a>
           </Form>
           </Container>
         </div>
