@@ -1,5 +1,6 @@
 import {
   DefaultPage,
+  Register,
 } from './';
 
 export default {
@@ -11,5 +12,6 @@ export default {
       component: DefaultPage,
       isIndex: true,
     },
+    { path: 'Register', name: 'Register', component: Register },
   ],
 };

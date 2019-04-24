@@ -2,61 +2,104 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import reactLogo from '../../images/react-logo.svg';
-import rekitLogo from '../../images/rekit-logo.svg';
 import * as actions from './redux/actions';
+import Swal from 'sweetalert2'
+import {Animated} from "react-animated-css";
+import { Button, Form, FormGroup, Label, Input, FormText,Container, Row, Col } from 'reactstrap';
 
 export class DefaultPage extends Component {
   static propTypes = {
     home: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
+  constructor(props){
+    super();
+    this.submitData = this.submitData.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.state={
+      name:null,
+      password:null,
+    }
+  }
+  submitData=()=> {
+    if(this.state.name != null && this.state.password != null){
+       Swal.fire({
+        title: `${this.state.name} you have logged in successfully`,
+        animation: false,
+        type: 'success',
+        customClass: {
+          popup: 'animated tada'
+        }
+      }).then((result) => {
+        if(result){
+          window.location.href="/"
+        }
+      })
+    }else{
+      Swal.fire({
+        title: `Incorrect Username or Password`,
+        animation: false,
+        type: 'danger',
+        customClass: {
+          popup: 'animated tada'
+        }
+      }).then((result) => {
+        if(result){
+          window.location.href="/"
+        }
+      })
+    }
+  }
+  onChange=e=>{
+    switch(e.target.name) {
+      case "name":
+      this.setState({
+        name:e.target.value
+      })
+      break;
+      case "password":
+      this.setState({
+        password:e.target.value
+      })
+      break;
+      default:
+      break;
+    }
+  }
 
   render() {
+     const divStyle = {
+      margin: '6%',
+    };
+     const formLabelStyle = {
+       width: '200px',
+       margin: 'auto'
+    };
     return (
       <div className="home-default-page">
         <header className="app-header">
-          <img src={reactLogo} className="app-logo" alt="logo" />
-          <img src={rekitLogo} className="rekit-logo" alt="logo" />
-          <h1 className="app-title">Welcome to React</h1>
+          <Animated animationIn="zoomIn" animationOut="fadeOut" isVisible={true}>
+            <h1 className="app-title">Welcome to my app</h1>
+          </Animated>
         </header>
-        <div className="app-intro">
-          <h3>To get started:</h3>
-          <ul>
-            <li>
-              Edit component{' '}
-              <a
-                href="http://localhost:6076/element/src%2Ffeatures%2Fhome%2FDefaultPage.js/code"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                src/features/home/DefaultPage.js
-              </a>{' '}
-              for this page.
-            </li>
-            <li>
-              Edit component{' '}
-              <a
-                href="http://localhost:6076/element/src%2Ffeatures%2Fhome%2FApp.js/code"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                src/features/home/App.js
-              </a>{' '}
-              for the root container layout.
-            </li>
-            <li>
-              To see examples, access:&nbsp;
-              <Link to="/examples">/examples</Link>
-            </li>
-            <li>
-              Rekit Studio is running at:&nbsp;
-              <a href="http://localhost:6076/" target="_blank" rel="noopener noreferrer">
-                http://localhost:6076/
-              </a>.
-            </li>
-          </ul>
+        <div style={divStyle}>
+          <Animated animationIn="bounce" animationOut="fadeOut" isVisible={true}>
+            <h1>Login</h1>
+          </Animated>
+          <hr/>
+          <Container>
+          <Form>
+            <FormGroup>
+              Name :
+              <Input type="name" name="name" id="name" placeholder="Enter name" style={formLabelStyle} onChange={this.onChange}/>
+            </FormGroup>
+            <FormGroup>
+              Password :
+              <Input type="password" name="password" id="password" placeholder="Enter password" style={formLabelStyle} onChange={this.onChange}/>
+            </FormGroup>
+            <Button onClick={this.submitData} color="success">Log In</Button>
+          </Form>
+          </Container>
         </div>
       </div>
     );
